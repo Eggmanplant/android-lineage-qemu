@@ -16,16 +16,16 @@ chmod a+x bin/repo
 export PATH="$(realpath .)/bin:$PATH"
 cd android/lineage
 export PATH="$(realpath .)/prebuilts/sdk/tools/linux/bin/:$PATH"
-repo init -u https://github.com/LineageOS/android.git -b lineage-23.0 --git-lfs --no-clone-bundle
+repo init -u https://github.com/LineageOS/android.git -b lineage-23.1 --git-lfs --no-clone-bundle
 repo sync -j 8 # $(nproc)
-sed -i 's/-$(LINEAGE_BUILDTYPE)/-jqssun/g' vendor/lineage/config/version.mk
+sed -i 's/-$(LINEAGE_BUILDTYPE)/-dogeggs/g' vendor/lineage/config/version.mk
 
 source build/envsetup.sh
 export AB_OTA_UPDATER=false
-breakfast virtio_arm64only
+breakfast virtio_x86_64
 echo "$(jq '. += [{"repository": "android_kernel_mainline_configs", "target_path": "kernel/mainline/configs"}]' device/mainline/common/lineage.dependencies)" > device/mainline/common/lineage.dependencies
-breakfast virtio_arm64only userdebug
+breakfast virtio_x86_64 userdebug
 m recoveryimage
-mv out/target/product/virtio_arm64only/recovery.img ../../recovery-userdebug.img
-breakfast virtio_arm64only user # breakfast virtio_arm64only
+mv out/target/product/virtio_x86_64/recovery.img ../../recovery-userdebug.img
+breakfast virtio_x86_64 user
 m vm-utm-zip otapackage
