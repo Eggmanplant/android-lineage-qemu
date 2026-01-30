@@ -28,4 +28,4 @@ breakfast virtio_x86_64 userdebug
 m recoveryimage
 mv out/target/product/virtio_x86_64/recovery.img ../../recovery-userdebug.img
 breakfast virtio_x86_64 user
-m vm-utm-zip otapackage
+m isoimage-install
